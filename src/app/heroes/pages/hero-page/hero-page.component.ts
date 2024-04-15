@@ -33,7 +33,7 @@ export class HeroPageComponent {
             this.hero = hero;
             return;
 			})
-	  }
+	}
 
     goBack(): void {
         this.router.navigateByUrl('/heroes/list');
