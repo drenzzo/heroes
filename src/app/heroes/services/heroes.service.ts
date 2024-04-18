@@ -6,18 +6,22 @@ import { Hero } from '../interfaces/hero.interface';
 
 @Injectable({ providedIn: 'root' })
 export class HeroesService {
-	private baseUrl: string = enviroments.baseUrl;
 
-	constructor(private http: HttpClient) {}
+  private baseUrl: string = enviroments.baseUrl;
 
-	getHeroes(): Observable<Hero[]> {
-		return this.http.get<Hero[]>(`${this.baseUrl}/heroes`);
-	}
+  constructor(private http: HttpClient) {}
 
-	getHeroById(id: string): Observable<Hero | undefined> {
-		return this.http.get<Hero>(`${ this.baseUrl }/heroes/${ id }`)
-			.pipe(
-				catchError( error => of(undefined) )
-			);
-	}
+  getHeroes(): Observable<Hero[]> {
+    return this.http.get<Hero[]>(`${this.baseUrl}/heroes`);
+  }
+
+  getHeroById(id: string): Observable<Hero | undefined> {
+    return this.http
+      .get<Hero>(`${this.baseUrl}/heroes/${id}`)
+      .pipe(catchError((error) => of(undefined)));
+  }
+
+  getSuggestions( query: string): Observable<Hero[]> {
+    return this.http.get<Hero[]>(`${ this.baseUrl }/heroes?q=${ query }&_limit=6`);
+  }
 }
