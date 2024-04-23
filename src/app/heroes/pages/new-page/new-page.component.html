@@ -11,39 +11,46 @@
     <mat-card>
       <mat-card-content>
 
-        <div class="grid">
+        <form class="grid" [formGroup]="heroForm" (ngSubmit)="onSubmit()">
 
           <mat-form-field class="col-12 sm:col-6">
             <mat-label>Super Héroe</mat-label>
-            <input type="text"
+            <input
+              type="text"
               matInput
-              required />
+              required
+              formControlName="superhero" />
           </mat-form-field>
 
           <mat-form-field class="col-12 sm:col-6">
             <mat-label>Alter Ego</mat-label>
             <input type="text"
               matInput
-              required />
+              required
+              formControlName="alter_ego" />
           </mat-form-field>
 
           <mat-form-field class="col-12">
             <mat-label>Primera aparición</mat-label>
             <input type="text"
               matInput
-              required />
+              required
+              formControlName="first_appearance" />
           </mat-form-field>
 
           <mat-form-field class="col-12">
             <mat-label>Personajes</mat-label>
             <input type="text"
               matInput
-              required />
+              required
+              formControlName="characters" />
           </mat-form-field>
 
           <mat-form-field class="col-12">
             <mat-label>Creador</mat-label>
-            <mat-select required>
+            <mat-select
+              formControlName="publisher"
+              required>
               <mat-option *ngFor="let publisher of publishers"
                 [value]="publisher.id">
                 {{ publisher.desc }}
@@ -51,7 +58,16 @@
             </mat-select>
           </mat-form-field>
 
-        </div>
+          <mat-form-field class="col-12">
+            <mat-label>Alternative image</mat-label>
+            <input
+              type="text"
+              matInput
+              required
+              formControlName="alt_img" />
+          </mat-form-field>
+
+        </form>
 
         <div class="flex justify-content-between">
 
@@ -64,7 +80,8 @@
 
           <button
             mat-flat-button
-            color="primary">
+            color="primary"
+            (click)="onSubmit()">
             <mat-icon>save</mat-icon>
             Guardar
           </button>
@@ -78,9 +95,15 @@
   <div class="col-12 sm:col-6">
 
     <mat-card>
-      <img src="" alt="" mat-card-image>
+      <img [src]="currentHero | heroImage" alt="imagen del heroe" mat-card-image>
     </mat-card>
 
   </div>
 
 </div>
+
+<pre>
+
+  {{ currentHero | json }}
+
+</pre>
